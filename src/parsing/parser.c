@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: voszadcs <voszadcs@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/09 23:57:03 by voszadcs          #+#    #+#             */
+/*   Updated: 2024/06/10 03:48:46 by voszadcs         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 
 static int	count_lines(int fd)
@@ -5,6 +17,7 @@ static int	count_lines(int fd)
 	int		i;
 	char	*temp;
 
+	i = 0;
 	temp = get_next_line(fd);
 	while (temp && i++ < INT16_MAX)
 	{
@@ -14,14 +27,14 @@ static int	count_lines(int fd)
 	return (close(fd), i);
 }
 
-static char **read_file(char *file)
+static char	**read_file(char *file)
 {
 	char	**input;
 	char	*temp;
 	int		fd;
 	int		count;
 
-    fd = open(file, O_RDONLY);
+	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		error(FILE_OPEN);
 	count = count_lines(fd);
@@ -29,7 +42,7 @@ static char **read_file(char *file)
 	input = malloc(sizeof(char *) * (count + 1));
 	count = 0;
 	temp = get_next_line(fd);
-	while(temp)
+	while (temp)
 	{
 		input[count++] = temp;
 		temp = get_next_line(fd);
@@ -37,10 +50,10 @@ static char **read_file(char *file)
 	return (input[count] = NULL, close(fd), input);
 }
 
-static void check_extension(char *filename)
+static void	check_extension(char *filename)
 {
-	int len;
-	char *extension;
+	int		len;
+	char	*extension;
 
 	len = ft_strlen(filename);
 	if (len < 5 || len > 255)
@@ -53,7 +66,8 @@ static void check_extension(char *filename)
 	}
 	free(extension);
 }
-t_map *parse(int argc, char **argv)
+
+t_map	*parse(int argc, char **argv)
 {
 	t_map	*map;
 	char	**input;
@@ -63,8 +77,8 @@ t_map *parse(int argc, char **argv)
 	check_extension(argv[1]);
 	input = read_file(argv[1]);
 	map = malloc(sizeof(t_map));
-    map->map2d = NULL;
+	map->map2d = NULL;
 	parse_description(map, input);
-    parse_map(map, input);
+	parse_map(map, input);
 	return (map);
 }

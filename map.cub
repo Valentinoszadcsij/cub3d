@@ -1,0 +1,14 @@
+NO textures/walls/wall1.png
+SO textures/walls/wall1.png
+WE textures/walls/wall1.png
+EA textures/walls/wall1.png
+
+F 220,100,0
+C 225,30,0
+
+1111111111
+1000000011
+1000000001
+10000S0111
+1000000011
+1111111111

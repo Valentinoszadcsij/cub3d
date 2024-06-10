@@ -16,11 +16,15 @@
 // misc
 # define S_W 1900 // screen width
 # define S_H 1000 // screen height
-# define TILE_SIZE 15 // tile size
+# define TILE_SIZE 16 // tile size
 # define FOV 60 // field of view
 # define ROTATION_SPEED 0.045 // rotation speed
 # define PLAYER_SPEED 8	// player speed
 # define M_PI 3.14159265358979323846
+//color
+# define RED 0
+# define GREEN 1
+# define BLUE 2
 
 
 # include "../lib/MLX42/include/MLX42/MLX42.h"
@@ -111,7 +115,21 @@ void        free_double_char(char **array);
 void        free_map_struct(t_map *map);
 void        free_game_struct(t_game *game);
 void        free_text_struct(t_texture *text);
-
+//game
 void        start_the_game(t_map *map);
+void 		mlx_key(mlx_key_data_t key_game, void *param);
+void 		move_hook(t_game *game, double move_x, double move_y);
+void		render_wall(t_game *mlx, int ray);
+void		cast_rays(t_game *mlx);
+float		nor_angle(float angle);	// normalize the angle
+void 		ft_put_pixel(t_game *game, int x, int y, int c);
+uint32_t 	rgb_color(int r, int g, int b, int a);
+unsigned int get_color(int c);
+double		get_x_offset(mlx_texture_t *texture, t_game *data);
+
+
+
+
+
 
 #endif

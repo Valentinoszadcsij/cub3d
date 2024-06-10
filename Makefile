@@ -23,8 +23,12 @@ SRC:= 	./src/main.c \
 		./src/utils/errors.c \
 		./src/utils/free.c \
 		./src/get_next_line/get_next_line.c \
-		./src/get_next_line/get_next_line_utils.c
-		
+		./src/get_next_line/get_next_line_utils.c \
+		./src/game/movement_utils.c \
+		./src/game/movement.c \
+		./src/game/raycasting.c \
+		./src/game/render_utils.c \
+		./src/game/rendering.c \
 
 OBJ:=	$(SRC:.c=.o)
 
@@ -33,6 +37,20 @@ FLAGS:=	-Wall -Werror -Wextra
 
 CC:= gcc
 
+# Detect the operating system
+UNAME_S := $(shell uname -s)
+
+# Default values
+LIBS := -ldl -lglfw -pthread -lm
+MLX_DIR := lib/MLX42
+
+# Adjust values based on the operating system
+ifeq ($(UNAME_S), Linux)
+    LIBS += -lX11 -lXext
+endif
+ifeq ($(UNAME_S), Darwin)  # macOS
+    LIBS += -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo
+endif
 all: libft mlx $(NAME)
 
 libft:
@@ -48,9 +66,10 @@ mlx:
 	@cmake --build lib/MLX42/build -j4
 	@echo "Building MLX42..."
 
+#$(CC) $(FLAGS) -o $(NAME) $(OBJ) lib/MLX42/build/libmlx42.a lib/libft/libft.a -lm -Iinclude -ldl -lglfw -pthread -lm
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) -o $(NAME) $(OBJ) lib/MLX42/build/libmlx42.a lib/libft/libft.a -lm -Iinclude -ldl -lglfw -pthread -lm
+	$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(MLX_DIR)/build/libmlx42.a lib/libft/libft.a $(LIBS) $(INCLUDE)
 %.o: %.c
 	$(CC) -c $(FLAGS) $^ -o $@
 
