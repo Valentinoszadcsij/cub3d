@@ -1,25 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: voszadcs <voszadcs@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 05:39:31 by voszadcs          #+#    #+#             */
+/*   Updated: 2024/06/10 05:40:41 by voszadcs         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "../include/cub3d.h"
 
-// Bytes Per Pixel. Since each pixel is represented as an integer, it will be four bytes for four channels.
-#define BPP sizeof(int32_t)
-#define UNIT 64
-
-int	mmain(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_map	*map;
-    map = parse(argc, argv);
-    // while (*map->map2d)
-    // {   
-    //     printf("Line: %s\n", *map->map2d);
-    //     map->map2d++;
-    // }
+
+	map = parse(argc, argv);
 	start_the_game(map);
-
-    return (EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
-int main(int argc, char **argv)
-{
-	mmain(argc, argv);
-	system("leaks a.out");
-}
+// int main(int argc, char **argv)
+// {
+// 	mmain(argc, argv);
+// 	system("leaks a.out");
+// }

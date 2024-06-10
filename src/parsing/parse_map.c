@@ -1,68 +1,81 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: voszadcs <voszadcs@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 05:30:11 by voszadcs          #+#    #+#             */
+/*   Updated: 2024/06/10 05:32:32 by voszadcs         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "../../include/cub3d.h"
 
-static int  count_lines(char **input)
+static int	count_lines(char **input)
 {
-    int i;
-    char    *pool;
+	int		i;
+	char	*pool;
 
-    pool = ft_strdup("NSEWFC\n");
-    i = 0;
-    while (*input && ft_strchr(pool, *input[0]) != 0)
-        input++;
-    free(pool);
-    while (*input)
-    {   
-        if (*input[0] == '\n')
-            return (0);
-        i++;
-        input++;
-    }
-    if ( i > 2 && (*(*(input - 1) + ft_strlen(*(input - 1)) - 1)) == '\n')
-        return (0);
-    return (i);
+	pool = ft_strdup("NSEWFC\n");
+	i = 0;
+	while (*input && ft_strchr(pool, *input[0]) != 0)
+		input++;
+	free(pool);
+	while (*input)
+	{
+		if (*input[0] == '\n')
+			return (0);
+		i++;
+		input++;
+	}
+	if (i > 2 && (*(*(input - 1) + ft_strlen(*(input - 1)) - 1)) == '\n')
+		return (0);
+	return (i);
 }
 
-static void copy_map(char **map, char **input)
+static void	copy_map(char **map, char **input)
 {
-    char    *pool;
+	char	*pool;
 
-    pool = ft_strdup("NSEWFC\n");
-    while (*input && ft_strchr(pool, *input[0]) != 0)
-        input++;
-    free(pool);
-    while (*input)
-    {
-        if (input + 1 != NULL)
-            *map = ft_substr(*input, 0, ft_strlen(*input) - 1);
-        else
-            *map = ft_strdup(*input);
-        map++;
-        input++;
-    }
+	pool = ft_strdup("NSEWFC\n");
+	while (*input && ft_strchr(pool, *input[0]) != 0)
+		input++;
+	free(pool);
+	while (*input)
+	{
+		if (input + 1 != NULL)
+			*map = ft_substr(*input, 0, ft_strlen(*input) - 1);
+		else
+			*map = ft_strdup(*input);
+		map++;
+		input++;
+	}
 }
 
-int     map_width(char **map)
+int	map_width(char **map)
 {
-    int     current;
-    int     prev;
-    char    *temp;
+	int		current;
+	int		prev;
+	char	*temp;
 
-    current = 0;
-    prev = 0;
-    while (*map)
-    {
-        temp = *map;
-        while (*temp)
-        {
-            temp++;
-            current++;
-        }
-        if (current > prev)
-            prev = current;
-        current = 0;
-        map++;
-    }
-    return (prev);
+	current = 0;
+	prev = 0;
+	while (*map)
+	{
+		temp = *map;
+		while (*temp)
+		{
+			temp++;
+			current++;
+		}
+		if (current > prev)
+			prev = current;
+		current = 0;
+		map++;
+	}
+	return (prev);
 }
 
 static void	find_player_position(t_map *data)
@@ -77,7 +90,7 @@ static void	find_player_position(t_map *data)
 		while (++x < data->map_w)
 		{
 			if (data->map2d[y][x] == 'N' || data->map2d[y][x] == 'S' ||
-                data->map2d[y][x] == 'E' || data->map2d[y][x] == 'W')
+				data->map2d[y][x] == 'E' || data->map2d[y][x] == 'W')
 			{
 				data->player_x = x;
 				data->player_y = y;
@@ -87,7 +100,7 @@ static void	find_player_position(t_map *data)
 		}
 	}
 	data->player_x = -1;
-    data->player_y = -1;
+	data->player_y = -1;
 }
 
 void	parse_map(t_map *map, char **input)

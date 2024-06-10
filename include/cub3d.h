@@ -3,7 +3,6 @@
 
 # define PLAYER_WID 64
 # define PLAYER_HEI 64
-# define PLAYER_STEP 32
 
 // ERROR CODES
 # define WRONG_ARGS_NUM 1
@@ -19,7 +18,7 @@
 # define TILE_SIZE 16 // tile size
 # define FOV 60 // field of view
 # define ROTATION_SPEED 0.045 // rotation speed
-# define PLAYER_SPEED 8	// player speed
+# define PLAYER_SPEED 1	// player speed
 # define M_PI 3.14159265358979323846
 //color
 # define RED 0
