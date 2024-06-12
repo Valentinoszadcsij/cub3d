@@ -6,10 +6,9 @@
 /*   By: voszadcs <voszadcs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:30:11 by voszadcs          #+#    #+#             */
-/*   Updated: 2024/06/10 05:32:32 by voszadcs         ###   ########.fr       */
+/*   Updated: 2024/06/12 03:00:30 by voszadcs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../include/cub3d.h"
 
@@ -45,7 +44,7 @@ static void	copy_map(char **map, char **input)
 	free(pool);
 	while (*input)
 	{
-		if (input + 1 != NULL)
+		if (*(input + 1) != NULL)
 			*map = ft_substr(*input, 0, ft_strlen(*input) - 1);
 		else
 			*map = ft_strdup(*input);

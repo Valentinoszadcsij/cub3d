@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: voszadcs <voszadcs@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/12 03:42:36 by voszadcs          #+#    #+#             */
+/*   Updated: 2024/06/12 03:43:25 by voszadcs         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -24,8 +36,7 @@
 # define RED 0
 # define GREEN 1
 # define BLUE 2
-
-
+//Includes
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/libft/libft.h"
 # include "../src/get_next_line/get_next_line.h"
@@ -38,97 +49,94 @@
 
 typedef struct s_map
 {
-	char *north;
-	char *south;
-	char *west;
-	char *east;
-	int *floor;
-	int *ceiling;
-	char **map2d;
-    int map_w; // Map width
-    int map_h; // Map height
-    int player_x;
-    int player_y;
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+	int		*floor;
+	int		*ceiling;
+	char	**map2d;
+	int		map_w;
+	int		map_h;
+	int		player_x;
+	int		player_y;
 }	t_map;
 
 typedef struct s_tmp
 {
-	int id;
+	int	id;
 }	t_tmp;
 
 typedef struct s_player {
-    int player_x; // Player x position in pixels
-    int player_y; // Player y position in pixels
-    int direc_x;
-    int direc_y;
-    int rotation;
-    double p_angle; // Player angle
-    double p_speed; // Player speed
-    float fov; // Field of view
-} t_player;
+	int			player_x;
+	int			player_y;
+	int			direc_x;
+	int			direc_y;
+	int			rotation;
+	double		p_angle;
+	double		p_speed;
+	float		fov;
+}	t_player;
 
 typedef struct s_texture
 {
-	mlx_texture_t *north;
-	mlx_texture_t *south;
-	mlx_texture_t *west;
-	mlx_texture_t *east;
-} t_texture;
+	mlx_texture_t	*north;
+	mlx_texture_t	*south;
+	mlx_texture_t	*west;
+	mlx_texture_t	*east;
+}	t_texture;
 
-typedef struct s_ray	//the ray structure
-{   
-	int ray_i;
-	double hor_x;
-	double hor_y;
-	double	ray_ngl;	// ray angle
-	double	distance;	// distance to the wall
-	int		flag;		// flag for the wall
-	int hit_x;  // X-coordinate of the hit on the wall
-    int hit_y;
-    int is_vertical;
-    t_texture *hit_tex;
+typedef struct s_ray
+{
+	int				ray_i;
+	double			hor_x;
+	double			hor_y;
+	double			ray_ngl;
+	double			distance;
+	int				flag;
+	int				hit_x;
+	int				hit_y;
+	int				is_vertical;
+	t_texture		*hit_tex;
 }	t_ray;
 
-typedef struct s_game	//the mlx structure
+typedef struct s_game
 {
-	mlx_t			*mlx;	// the mlx pointer
-	mlx_image_t		*img;	// the image
-	t_ray			*ray;	// the ray structure
-	t_map			*g_map;	// the data structure
-	t_player		*ply;	// the player structure
-	t_texture       *tex;
-	t_tmp           *temp;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	t_ray			*ray;
+	t_map			*g_map;
+	t_player		*ply;
+	t_texture		*tex;
+	t_tmp			*temp;
 }	t_game;
 
 //parsing
-char	    *get_next_line(int fd);
+char		*get_next_line(int fd);
 t_map		*parse(int argc, char **argv);
-void        parse_description(t_map *map, char **input);
-int         validate_descr(char **input);
-int         is_rgb_value(char *str);
-void        parse_map(t_map *map, char **input);
-int         valid_map(char **map);
+void		parse_description(t_map *map, char **input);
+int			validate_descr(char **input);
+int			is_rgb_value(char **str);
+void		parse_map(t_map *map, char **input);
+int			valid_map(char **map);
+int			check_first_line(char *line);
+
 //general utils
 int			error(int errnum);
-void        free_double_char(char **array);
-void        free_map_struct(t_map *map);
-void        free_game_struct(t_game *game);
-void        free_text_struct(t_texture *text);
+void		free_double_char(char **array);
+void		free_map_struct(t_map *map);
+void		free_game_struct(t_game *game);
+void		free_text_struct(t_texture *text);
 //game
-void        start_the_game(t_map *map);
-void 		mlx_key(mlx_key_data_t key_game, void *param);
-void 		move_hook(t_game *game, double move_x, double move_y);
+void		start_the_game(t_map *map);
+void		mlx_key(mlx_key_data_t key_game, void *param);
+void		move_hook(t_game *game, double move_x, double move_y);
 void		render_wall(t_game *mlx, int ray);
 void		cast_rays(t_game *mlx);
 float		nor_angle(float angle);	// normalize the angle
-void 		ft_put_pixel(t_game *game, int x, int y, int c);
-uint32_t 	rgb_color(int r, int g, int b, int a);
-unsigned int get_color(int c);
+void		ft_put_pixel(t_game *game, int x, int y, int c);
+uint32_t	rgb_color(int r, int g, int b, int a);
+unsigned	int	get_color(int c);
 double		get_x_offset(mlx_texture_t *texture, t_game *data);
-
-
-
-
-
 
 #endif
