@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: voszadcs <voszadcs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 16:23:46 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/03/31 01:04:15 by ohamadou         ###   ########.fr       */
+/*   Updated: 2024/06/12 03:51:39 by voszadcs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #  define BUFFER_SIZE 1000
 # endif
 
-int	    foo_strlen(char *str);
+int		foo_strlen(char *str);
 char	*foo_strchr(char *s, int c);
 char	*get_the_line(char *strng);
 void	*foo_memcpy(void *dest, const void *src, size_t n);
